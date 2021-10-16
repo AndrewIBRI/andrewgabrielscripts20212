@@ -1,1 +1,1 @@
-disciplinas/metodos_e_tecnicas_de_pesquisa.txt
+../../disciplinas/metodos_e_tecnicas_de_pesquisa.txt

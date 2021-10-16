@@ -1,1 +1,1 @@
-disciplinas/programacao_orientada_a_objetos.txt
+../../disciplinas/programacao_orientada_a_objetos.txt

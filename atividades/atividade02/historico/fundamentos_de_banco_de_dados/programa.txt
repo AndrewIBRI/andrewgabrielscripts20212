@@ -1,1 +1,1 @@
-disciplinas/fundamentos_de_banco_de_dados.txt
+../../disciplinas/fundamentos_de_banco_de_dados.txt

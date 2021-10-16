@@ -1,1 +1,1 @@
-professores/emanuel_ferreira_coutinho.txt
+../../professores/emanuel_ferreira_coutinho.txt

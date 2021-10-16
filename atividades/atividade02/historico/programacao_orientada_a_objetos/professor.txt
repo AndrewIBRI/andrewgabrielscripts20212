@@ -1,1 +1,1 @@
-professores/julio_serafim_martins.txt
+../../professores/julio_serafim_martins.txt

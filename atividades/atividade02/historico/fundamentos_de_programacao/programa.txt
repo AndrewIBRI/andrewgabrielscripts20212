@@ -1,1 +1,1 @@
-disciplinas/fundamentos_de_programacao.txt
+../../disciplinas/fundamentos_de_programacao.txt

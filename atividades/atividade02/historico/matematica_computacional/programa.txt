@@ -1,1 +1,1 @@
-disciplinas/matematica_computacional.txt
+../../disciplinas/matematica_computacional.txt

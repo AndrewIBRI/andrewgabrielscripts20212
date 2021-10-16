@@ -1,1 +1,1 @@
-professores/wladimir_araujo_tavares.txt
+../../professores/wladimir_araujo_tavares.txt

@@ -1,1 +1,1 @@
-disciplinas/redes_de_computadores.txt
+../../disciplinas/redes_de_computadores.txt

@@ -1,1 +1,1 @@
-professores/joao_ferreira_de_lavor.txt
+../../professores/joao_ferreira_de_lavor.txt

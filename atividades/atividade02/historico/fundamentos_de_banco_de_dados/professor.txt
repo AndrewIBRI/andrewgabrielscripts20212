@@ -1,1 +1,1 @@
-professores/adriano_gomes_da_silva.txt
+../../professores/adriano_gomes_da_silva.txt
