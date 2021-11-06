@@ -1,4 +1,5 @@
 #!/bin/bash
+# Correção: 2,0
 
 echo "Olá $USER,"
 echo "Olá $USER," >> saudacao.log
