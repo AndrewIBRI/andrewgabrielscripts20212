@@ -1,4 +1,5 @@
 #!/bin/bash
+# Correção: 0,5
 a=$1
 b=$2
 c=$3
