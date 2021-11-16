@@ -1,4 +1,5 @@
 #!/bin/bash
+# Correção: 1,0
 mkdir cinco
 for i in 1 2 3 4 5
 do
