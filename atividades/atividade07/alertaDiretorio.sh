@@ -1,4 +1,5 @@
 #!/bin/bash
+# Correção: 1,0
 ls $2 > 1.log
 ls $2 > 2.log
 dirnumbers=$(ls $2 | wc -l)
