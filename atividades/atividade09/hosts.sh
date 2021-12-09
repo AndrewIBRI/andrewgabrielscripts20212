@@ -1,4 +1,5 @@
 #!/bin/bash
+# Correção: 0,5. 
 comando1=$1
 host=$2
 comando2=$3
