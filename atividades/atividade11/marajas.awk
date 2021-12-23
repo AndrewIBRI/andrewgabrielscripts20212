@@ -1,3 +1,4 @@
+# Correção: 0,5. Não funciona se mais professores ou cursos forem adicionados.
 BEGIN{
 r="Redes"
 s="Sistemas"

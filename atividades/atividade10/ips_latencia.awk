@@ -1,4 +1,4 @@
-# Correção: 0,0. Atividade e presenças zeradas por copiar resposta do semestre anterior.
+# Correção: 0,5. Está, mesmo copiada do semestre anterior, está ok.
 {printf $1 " "
 comando = "ping -c 5 "$1" | grep rtt"
 comando | getline pingado
