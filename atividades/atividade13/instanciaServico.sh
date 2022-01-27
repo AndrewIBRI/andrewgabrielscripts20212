@@ -1,4 +1,5 @@
 #!/bin/bash
+# Correção: 1,0. O script não executa.
 subnet=$(aws ec2 describe-subnets --query "Subnets[0].SubnetId" --output text)
 imagem=ami-042e8287309f5df03
 grupid=$(aws ec2 describe-security-groups --query "SecurityGroups[0].GroupId" --output text)
