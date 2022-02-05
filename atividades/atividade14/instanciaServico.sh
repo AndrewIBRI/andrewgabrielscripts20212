@@ -1,4 +1,5 @@
 #!/bin/bash
+# Correção: 2,0
 if [ -z $1 ] ; then
 echo "Nome da chave nao inserida"
 exit
