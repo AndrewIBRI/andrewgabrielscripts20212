@@ -1,0 +1,22 @@
+#!/bin/bash 
+
+
+sudo apt update
+sudo apt install mysql-client -y
+
+
+cat << EOF > .my.cnf
+[client]
+user=$usuario
+password=$senha
+
+EOF
+
+sudo mysql -u $usuario scripts -h $iplogin <<EOF
+
+USE scripts ;
+CREATE TABLE Test ( atividade INT ) ;
+
+EOF
+
+
