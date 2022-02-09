@@ -1,4 +1,6 @@
 #!/bin/bash 
+usuario=joaomarcelo
+senha=1566scripts
 
 
 

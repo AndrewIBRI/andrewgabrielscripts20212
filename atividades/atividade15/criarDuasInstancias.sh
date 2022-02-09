@@ -1,4 +1,6 @@
 #!/bin/bash
+# Correção: 1,0. Seu script não funciona. Você nomeia a instância "Banco de Dados" e fica buscando informações de uma instância chamada "andrew", logo nunca sai do laço de verificação. 
+# Mas o resto parece fazer sentido, então corrija esse problema e tente as próximas atividades. 
 ipdohost=$(curl ifconfig.me)
 if [ -z $1 ] ; then
 echo "Nome da chave nao inserida"
