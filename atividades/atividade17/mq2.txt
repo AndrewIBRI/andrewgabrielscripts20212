@@ -36,7 +36,7 @@ find /var/www/html/wordpress/ -type d -exec chmod 750 {} \;
 find /var/www/html/wordpress/ -type f -exec chmod 640 {} \;
 systemctl restart apache2
 
-sudo mmysql -u $usuario -h $HOST<<EOF
+sudo mysql -u $usuario -h $HOST<<EOF
 CREATE DATABASE scripts;
 CREATE USER '$usuario'@'%' IDENTIFIED BY '$senha' ;
 GRANT ALL PRIVILEGES ON scripts.* TO '$usuario'@'%';
