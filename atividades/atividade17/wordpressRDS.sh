@@ -5,30 +5,31 @@ echo "Nome da chave nao inserida"
 exit
 fi
 usuario='"$2"'@'%'
-sed -i '2s/^/usuario='$2'\n/' mq1.txt
-sed -i '3s/^/senha='$3'\n/' mq1.txt
-sed -i '34s/^/USER='$2'\n/' mq2.txt
-sed -i '35s/^/PASSWORD='$3'\n/' mq2.txt
+sed -i '2s/^/usuario='$2'\n/' mq2.txt
+sed -i '3s/^/senha='$3'\n/' mq2.txt
+sed -i '4s/^/USER='$2'\n/' mq2.txt
+sed -i '5s/^/PASSWORD='$3'\n/' mq2.txt
 pending=true
 subnet=$(aws ec2 describe-subnets --query "Subnets[0].SubnetId" --output text)
 imagem=ami-04505e74c0741db8d
-grupid=$(aws ec2 create-security-group --group-name andrew --description "atividade15mysql" --output text)
-aws ec2 authorize-security-group-ingress --group-name andrew --port 22 --protocol tcp --cidr $ipdohost/0 >/dev/null 2>&1
-aws ec2 authorize-security-group-ingress --group-name andrew --port 80 --protocol tcp --cidr 0.0.0.0/0 >/dev/null 2>&1
-aws ec2 authorize-security-group-ingress --group-name andrew --port 3306 --protocol tcp --source-group $grupid >/dev/null 2>&1
-aws rds create-db-instance --db-instance-identifier wordpress --vpc-security-group-ids $grupid --db-instance-class db.t2.micro --engine mysql --master-username wordpress --master-user-password 123alu456 --allocated-storage 20 >/dev/null 
+grupid=$(aws ec2 create-security-group --group-name wordpressrds --description "atividade15mysql" --output text)
+aws ec2 authorize-security-group-ingress --group-name wordpressrds --port 22 --protocol tcp --cidr $ipdohost/0 >/dev/null 2>&1
+aws ec2 authorize-security-group-ingress --group-name wordpressrds --port 80 --protocol tcp --cidr 0.0.0.0/0 >/dev/null 2>&1
+aws ec2 authorize-security-group-ingress --group-name wordpressrds--port 3306 --protocol tcp --source-group $grupid >/dev/null 2>&1
+aws rds create-db-instance --db-instance-identifier wordpressrds --vpc-security-group-ids $grupid --db-instance-class db.t2.micro --engine mysql --master-username $2 --master-user-password $3 --allocated-storage 20 >/dev/null 
 
 while [ $pending == true ]
 do
 echo "Criando servidor de Banco de Dados..."
-   if [ $(aws rds describe-instances --output text --query 'Reservations[].Instances[].[State.Name]') == "running" ]; then
+   if [ $(aws rds describe-db-instances --output text --query "DBInstances[].DBInstanceStatus") == "available" ]; then
    pending=false
-   ip1=$(aws rds describe-instances --output text --query 'Reservations[].Instances[].PrivateIpAddress')
+   ip1=$(aws rds describe-db-instances --output text --query "DBInstances[].Endpoint[].Address")
    fi
+   sleep 5
 done
 
-echo "IP Privado do Banco de Dados:"$ip1
-sed -i '36s/^/HOST='$ip1'\n/' mq2.txt
+echo "Endpoint do RDS:"$ip1
+sed -i '3s/^/HOST='$ip1'\n/' mq2.txt
 
 pending=true
 #possiveis erros com a instalacao do mysql mas eu coloquei o sleep pra certificar que estaria tudo ok antes de iniciar a 2 estancia
@@ -45,6 +46,7 @@ echo "Criando servidor de Aplicação..."
    pending=false
    ip2=$(aws ec2 describe-instances --filters 'Name=tag:Name,Values=aplicacao'   --output text --query 'Reservations[].Instances[].PublicIpAddress')
    fi
+   sleep 5
 done
 
 echo "IP Público do Servidor de Aplicação:"$ip2

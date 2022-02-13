@@ -1,6 +1,10 @@
 #!/bin/bash 
 
 
+
+
+
+
 sudo apt update
 sudo apt install mysql-client -y
 apt-get install apache2 php-mysql php-curl libapache2-mod-php php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip -y
@@ -18,6 +22,7 @@ cat<<EOF > /etc/apache2/sites-available/wordpress.conf
     AllowOverride All
 </Directory>
 EOF
+
 a2enmod rewrite
 a2ensite wordpress
 
@@ -29,6 +34,14 @@ chown -R www-data:www-data /var/www/html/wordpress
 find /var/www/html/wordpress/ -type d -exec chmod 750 {} \;
 find /var/www/html/wordpress/ -type f -exec chmod 640 {} \;
 systemctl restart apache2
+
+sudo mysql -h $HOST<<EOF
+CREATE DATABASE scripts;
+CREATE USER '$usuario'@'%' IDENTIFIED BY '$senha' ;
+GRANT ALL PRIVILEGES ON scripts.* TO '$usuario'@'%';
+
+EOF
+
 
 DB=scripts
 
@@ -56,6 +69,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once ABSPATH . 'wp-settings.php';
 EOF
+
 cp wp-config.php /var/www/html/wordpress/
 
 chown -R www-data:www-data /var/www/html/wordpress
@@ -63,3 +77,4 @@ find /var/www/html/wordpress/ -type d -exec chmod 750 {} \;
 find /var/www/html/wordpress/ -type f -exec chmod 640 {} \;
 
 systemctl restart apache2
+
