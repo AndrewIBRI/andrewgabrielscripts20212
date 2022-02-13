@@ -11,7 +11,7 @@ sudo apt install mysql-client -y
 apt-get install apache2 php-mysql php-curl libapache2-mod-php php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip -y
 
 
-cat << EOF > .my.cnf
+cat<< EOF > .my.cnf
 [client]
 user=$usuario
 password=$senha
@@ -36,11 +36,10 @@ find /var/www/html/wordpress/ -type d -exec chmod 750 {} \;
 find /var/www/html/wordpress/ -type f -exec chmod 640 {} \;
 systemctl restart apache2
 
-sudo mysql -u $usuario -h $HOST<<EOF
+sudo mysql -u $usuario -p$senha -h $HOST <<EOF
 CREATE DATABASE scripts;
-CREATE USER '$usuario'@'%' IDENTIFIED BY '$senha' ;
+USE scripts;
 GRANT ALL PRIVILEGES ON scripts.* TO '$usuario'@'%';
-
 EOF
 
 
@@ -49,7 +48,7 @@ DB=scripts
 
 
 
-cat<<EOF > wp-config.php
+cat<<EOF > /var/www/html/wordpress/wp-config.php
 <?php
 define( 'DB_NAME', '$DB' );
 define( 'DB_USER', '$USER' );
@@ -71,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once ABSPATH . 'wp-settings.php';
 EOF
 
-cp wp-config.php /var/www/html/wordpress/
+
 
 chown -R www-data:www-data /var/www/html/wordpress
 find /var/www/html/wordpress/ -type d -exec chmod 750 {} \;

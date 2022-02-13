@@ -15,8 +15,8 @@ imagem=ami-04505e74c0741db8d
 grupid=$(aws ec2 create-security-group --group-name wordpressrds --description "atividade15mysql" --output text)
 aws ec2 authorize-security-group-ingress --group-name wordpressrds --port 22 --protocol tcp --cidr $ipdohost/0 >/dev/null 2>&1
 aws ec2 authorize-security-group-ingress --group-name wordpressrds --port 80 --protocol tcp --cidr 0.0.0.0/0 >/dev/null 2>&1
-aws ec2 authorize-security-group-ingress --group-name wordpressrds--port 3306 --protocol tcp --source-group $grupid >/dev/null 2>&1
-aws rds create-db-instance --db-instance-identifier wordpressrds --vpc-security-group-ids $grupid --db-instance-class db.t2.micro --engine mysql --master-username $2 --master-user-password $3 --allocated-storage 20 >/dev/null 
+aws ec2 authorize-security-group-ingress --group-name wordpressrds --port 3306 --protocol tcp --source-group $grupid >/dev/null 2>&1
+aws rds create-db-instance --db-instance-identifier wordpressrdsdb --vpc-security-group-ids $grupid --db-instance-class db.t2.micro --engine mysql --master-username $2 --master-user-password $3 --allocated-storage 20 >/dev/null 
 
 while [ $pending == true ]
 do
@@ -37,14 +37,14 @@ echo "Esperando 20 segundos para inicializar Segundo servidor(para dar tempo de 
 
 sleep 20
 
-aws ec2 run-instances --image-id $imagem --instance-type "t2.micro" --key-name $1 --security-group-ids $grupid --subnet-id $subnet --user-data file://mq2.txt --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=aplicacao}]' >/dev/null 
+aws ec2 run-instances --image-id $imagem --instance-type "t2.micro" --key-name $1 --security-group-ids $grupid --subnet-id $subnet --user-data file://mq2.txt --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=aplicacaoweb}]' >/dev/null 
 
 while [ $pending == true ]
 do
 echo "Criando servidor de Aplicação..."
-   if [ $(aws ec2 describe-instances --filters 'Name=tag:Name,Values=aplicacao'   --output text --query 'Reservations[].Instances[].[State.Name]') == "running" ]; then
+   if [ $(aws ec2 describe-instances --filters 'Name=tag:Name,Values=aplicacaoweb'   --output text --query 'Reservations[].Instances[].[State.Name]') == "running" ]; then
    pending=false
-   ip2=$(aws ec2 describe-instances --filters 'Name=tag:Name,Values=aplicacao'   --output text --query 'Reservations[].Instances[].PublicIpAddress')
+   ip2=$(aws ec2 describe-instances --filters 'Name=tag:Name,Values=aplicacaoweb'   --output text --query 'Reservations[].Instances[].PublicIpAddress')
    fi
    sleep 5
 done
