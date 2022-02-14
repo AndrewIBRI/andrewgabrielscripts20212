@@ -1,4 +1,9 @@
 #!/bin/bash 
+usuario=joaomarcelo
+HOST=wordpressrdsdb.cs694d9vvt6n.us-east-1.rds.amazonaws.com
+senha=1566scripts
+USER=joaomarcelo
+PASSWORD=1566scripts
 
 
 
