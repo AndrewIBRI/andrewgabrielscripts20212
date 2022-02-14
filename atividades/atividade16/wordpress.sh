@@ -1,4 +1,5 @@
 #!/bin/bash
+# Correção: 1,5. Por que você cria uma instância RDS aqui?!? Na Atividade 16, era para criar uma instância EC2 e instalar o servidor de banco de dados nela. 
 ipdohost=$(curl ifconfig.me)
 if [ -z $1 ] ; then
 echo "Nome da chave nao inserida"
